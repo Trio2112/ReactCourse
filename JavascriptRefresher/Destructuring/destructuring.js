@@ -14,7 +14,7 @@ const user = {
 
 // Note: Curly braces on the left side are used for destructing.
 // And the colon on the left side is used to assign an alias.
-const {firstName2 : firstNameAlias, lastName2: lastNameAlias} = user;
+const {firstName2 : firstNameAlias, lastName2 : lastNameAlias} = user;
 console.log(firstNameAlias);
 console.log(lastNameAlias);
 
