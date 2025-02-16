@@ -6,18 +6,20 @@ const initialGameBoard = [
     [null, null, null]
 ];
 
-export default function GameBoard() {
+export default function GameBoard({onTurnComplete, activePlayer}) {
     const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
     function handleGameBoardClick(rowIndex, columnIndex) {
-        // You must make a copy of the current state to keep the old state immutable.
+        // You must make a copy of the current state and keep the old state immutable.
         // Not doing so can lead to weird bugs.
         // See: https://academind.com/tutorials/reference-vs-primitive-values
         setGameBoard((prevGameBoard) => {
             const updatedGameBoard = [...prevGameBoard.map(innerArray => [...innerArray])];
-            updatedGameBoard[rowIndex][columnIndex] = 'X';
+            updatedGameBoard[rowIndex][columnIndex] = activePlayer;
             return updatedGameBoard;
         });
+
+        onTurnComplete();
     }
     
     return (
