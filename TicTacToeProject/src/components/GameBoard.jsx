@@ -6,21 +6,17 @@ const initialGameBoard = [
     [null, null, null]
 ];
 
-export default function GameBoard({onTurnComplete, activePlayer}) {
-    const [gameBoard, setGameBoard] = useState(initialGameBoard);
+export default function GameBoard({onTurnComplete, turns}) {
+    let gameBoard = initialGameBoard;
 
-    function handleGameBoardClick(rowIndex, columnIndex) {
-        // You must make a copy of the current state and keep the old state immutable.
-        // Not doing so can lead to weird bugs.
-        // See: https://academind.com/tutorials/reference-vs-primitive-values
-        setGameBoard((prevGameBoard) => {
-            const updatedGameBoard = [...prevGameBoard.map(innerArray => [...innerArray])];
-            updatedGameBoard[rowIndex][columnIndex] = activePlayer;
-            return updatedGameBoard;
-        });
+    turns.map(gameTurn => {
+        gameBoard[gameTurn.square.rowIndex][gameTurn.square.columnIndex] = gameTurn.player;
+    });
 
-        onTurnComplete();
-    }
+    // Alternate way instead of using "map" above is to do a for...of loop
+    //for (const turn of turns) {
+    //    gameBoard[turn.square.rowIndex][turn.square.columnIndex] = turn.player;
+    //}
     
     return (
         <ol id="game-board">
@@ -29,7 +25,7 @@ export default function GameBoard({onTurnComplete, activePlayer}) {
                     <ol>
                         {row.map((column, columnIndex) => (
                             <li key={columnIndex}>
-                                <button onClick={() => handleGameBoardClick(rowIndex, columnIndex)}>{column}</button>
+                                <button onClick={() => onTurnComplete(rowIndex, columnIndex)}>{column}</button>
                             </li>
                         ))}
                     </ol>
