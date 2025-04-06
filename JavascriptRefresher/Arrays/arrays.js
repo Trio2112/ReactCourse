@@ -50,6 +50,6 @@ console.log(mergedArray);
 
 
 //Quick way to loop through each item in an array.
-for(const item of hobbies) {
+for (const item of hobbies) {
     console.log(item);
 }
