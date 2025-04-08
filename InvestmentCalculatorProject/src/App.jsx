@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Header from "./header.jsx";
-import UserInput from "./UserInput.jsx";
-import Result from "./Result.jsx";
+import Header from "./components/Header.jsx";
+import UserInput from "./components/UserInput.jsx";
+import Result from "./components/Result.jsx";
 
 function App() {
   const [formData, setFormData] = useState({

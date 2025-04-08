@@ -1,4 +1,4 @@
-import {calculateInvestmentResults, formatter} from "./util/investment.js";
+import {calculateInvestmentResults, formatter} from "../util/investment.js";
 
 function calculateTotalInterest(annualData, year) {
     // Calculate the total interest earned up to the given year
