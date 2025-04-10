@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function AuthInputs() {
+export default function AuthInputsDynamicStyling() {
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
