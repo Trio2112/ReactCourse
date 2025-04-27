@@ -2,6 +2,7 @@ import ProjectForm from './components/ProjectForm.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import NoProjectSelected from './components/NoProjectSelected.jsx';
 import {useState} from 'react';
+import ProjectDetails from './components/ProjectDetails.jsx';
 
 function App() {
   const [projectsState, setProjectsState] = useState(
@@ -43,17 +44,33 @@ function App() {
       };
     });
   }
+
+  function handleSelectProject(projectId) {
+    setProjectsState( prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: projectId
+      };
+    });
+  }
   
   let content;
   if (projectsState.selectedProjectId === null) {
     content = <ProjectForm onSaveProject={handleSaveProject} onCancel={handleCancel} />;
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
+  } else {
+    content = <ProjectDetails project={projectsState.projects.find((item) => item.id === projectsState.selectedProjectId)} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar onStartAddProject={handleStartAddProject} projects={projectsState.projects} />
+      <Sidebar
+        onStartAddProject={handleStartAddProject}
+        onSelectProject={handleSelectProject}
+        projects={projectsState.projects}
+        selectedProjectId={projectsState.selectedProjectId}
+      />
       {content}
     </main>
   );
