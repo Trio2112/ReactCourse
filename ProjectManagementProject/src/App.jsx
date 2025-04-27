@@ -29,23 +29,31 @@ function App() {
       
       return {
         ...prevState,
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject]
       };
     });
   }
-  
-  console.log(projectsState);
+
+  function handleCancel() {
+    setProjectsState( prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined
+      };
+    });
+  }
   
   let content;
   if (projectsState.selectedProjectId === null) {
-    content = <ProjectForm onSaveProject={handleSaveProject} />;
+    content = <ProjectForm onSaveProject={handleSaveProject} onCancel={handleCancel} />;
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar onStartAddProject={handleStartAddProject} />
+      <Sidebar onStartAddProject={handleStartAddProject} projects={projectsState.projects} />
       {content}
     </main>
   );
