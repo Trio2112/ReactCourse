@@ -4,7 +4,7 @@ import NoProjectSelected from './components/NoProjectSelected.jsx';
 import {useState} from 'react';
 
 function App() {
-  const [projectState, setProjectsState] = useState(
+  const [projectsState, setProjectsState] = useState(
     {
       selectedProjectId: undefined,
       projects: []
@@ -19,11 +19,27 @@ function App() {
       };
     });
   }
+
+  function handleSaveProject(projectData) {
+    setProjectsState(prevState => {
+      const newProject = {
+        ...projectData,
+        id: self.crypto.randomUUID()
+      };
+      
+      return {
+        ...prevState,
+        projects: [...prevState.projects, newProject]
+      };
+    });
+  }
+  
+  console.log(projectsState);
   
   let content;
-  if (projectState.selectedProjectId === null) {
-    content = <ProjectForm />;
-  } else if (projectState.selectedProjectId === undefined) {
+  if (projectsState.selectedProjectId === null) {
+    content = <ProjectForm onSaveProject={handleSaveProject} />;
+  } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
 
