@@ -53,6 +53,22 @@ function App() {
       };
     });
   }
+
+  function handleDeleteProject() {
+    setProjectsState( prevState => {
+      const newProjects = [...prevState.projects];
+      const indexToRemove = newProjects.findIndex(item => item.id === prevState.selectedProjectId);
+      if (indexToRemove > -1) {
+         newProjects.splice(indexToRemove, 1);
+      }
+      
+      return {
+        ...prevState,
+        projects: newProjects,
+        selectedProjectId: undefined
+      };
+    });
+  }
   
   let content;
   if (projectsState.selectedProjectId === null) {
@@ -60,7 +76,10 @@ function App() {
   } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   } else {
-    content = <ProjectDetails project={projectsState.projects.find((item) => item.id === projectsState.selectedProjectId)} />;
+    content = <ProjectDetails 
+                project={projectsState.projects.find((item) => item.id === projectsState.selectedProjectId)}
+                onDeleteProject={handleDeleteProject}
+              />;
   }
 
   return (
