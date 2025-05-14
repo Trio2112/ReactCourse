@@ -28,7 +28,19 @@ function App() {
     });
   }
 
-  function handleDeleteTask() {
+  function handleDeleteTask(id) {
+    setProjectsState( prevState => {
+      const newTasks = [...prevState.tasks];
+      const indexToRemove = newTasks.findIndex(item => item.id === id);
+      if (indexToRemove > -1) {
+         newTasks.splice(indexToRemove, 1);
+      }
+      
+      return {
+        ...prevState,
+        tasks: newTasks
+      };
+    });
   }
 
   function handleStartAddProject() {
