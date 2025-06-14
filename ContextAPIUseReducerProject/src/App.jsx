@@ -68,8 +68,21 @@ function App() {
     });
   }
 
+  // ----------------------------------------------------------------------------------
+  // Create an object to link the context to state.
+  // ----------------------------------------------------------------------------------
+  const cartContextWithState = {
+    // @items: The current list of items in the shopping cart.
+    // Notice how this is linked to the shoppingCart state object. This is how you use context and state together.
+    items: shoppingCart.items,
+    
+    // @addItemToCart: Function to add an item to the shopping cart.
+    // Notice how this is linked to a method in the shoppingCart state object. This is how you use context and state together.
+    addItemToCart: handleAddItemToCart
+  }
+
   return (
-    <CartContext.Provider value={{ items: [] }}>
+    <CartContext.Provider value={cartContextWithState}> {/* Pass the context-state link object to setup the initial state */}
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
