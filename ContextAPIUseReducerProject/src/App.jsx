@@ -4,7 +4,7 @@ import Header from './components/Header.jsx';
 import Shop from './components/Shop.jsx';
 import Product from './components/Product.jsx';
 import { DUMMY_PRODUCTS } from './dummy-products.js';
-import CartContext from './store/shopping-cart-context.jsx';
+import { CartContext } from './store/shopping-cart-context.jsx';
 
 
 function App() {
@@ -69,7 +69,7 @@ function App() {
   }
 
   return (
-    <CartContext>
+    <CartContext.Provider value={{ items: [] }}>
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
@@ -81,7 +81,7 @@ function App() {
           </li>
         ))}
       </Shop>
-    </CartContext>
+    </CartContext.Provider>
   );
 }
 
